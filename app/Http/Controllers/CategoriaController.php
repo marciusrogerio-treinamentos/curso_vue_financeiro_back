@@ -17,11 +17,6 @@ class CategoriaController extends Controller
     public function index()
     {
 
-        Categoria::create([
-            ['categoria' => '001-Salario'],
-            ['tipo' => 'Entrada']
-           ]);
-
         $categorias = Categoria::orderBy('id')->get();
 
         dd($categorias);
@@ -35,7 +30,20 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = [
+            ["categoria" => "001-Sal", "tipo" => "Entrada"],
+            ["categoria" => "002-13° Sal", "tipo" => "Entrada"],
+            ["categoria" => "003-Bonûs", "tipo" => "Entrada"],
+            ["categoria" => "501-CD-Hiper", "tipo" => "Saida"],
+            ["categoria" => "502-CD-Extra", "tipo" => "Saida"],
+            ["categoria" => "503-CD-Nu", "tipo" => "Saida"],
+            ["categoria" => "504-CD-Sicoob", "tipo" => "Saida"],
+            ["categoria" => "505-CD-Carref", "tipo" => "Saida"],
+            ["categoria" => "506-CD-Porto", "tipo" => "Saida"],
+        ];
+
+        $this->store($categorias);
+
     }
 
     /**
@@ -44,12 +52,21 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($categorias)
     {
-       Categoria::create([
-        ['categoria' => '001-Salario'],
-        ['tipo' => 'Entrada']
-       ]);
+
+        foreach($categorias as $categoria) {
+            echo $categoria["categoria"] . " - " . $categoria["tipo"] . "<br>";
+            $newCat = new Categoria;
+            $newCat->categoria = $categoria["categoria"];
+            $newCat->tipo      = $categoria["tipo"];
+            $newCat->save();
+        }
+
+        echo "<hr>";
+
+
+
     }
 
     /**

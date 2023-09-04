@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/categorias', [CategoriaController::class, 'index']);
+Route::get('/categorias/create', [CategoriaController::class, 'create']);
